@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About Javian — how I approach problems in ML and software engineering.">
+  <title>About — Javian</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__name">Javian</a>
+      <ul class="nav__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html" class="active">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section class="hero" style="padding-bottom: var(--space-10);">
+      <div class="container">
+        <span class="hero__label">About</span>
+        <h1 class="hero__title" style="font-size: var(--text-3xl);">How I think about problems</h1>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="about-content">
+          <p>
+            I am a second-year Applied AI and Analytics student at Nanyang Polytechnic in Singapore. 
+            I build machine learning pipelines, NLP systems, and data-driven applications.
+          </p>
+          <p>
+            My approach to engineering starts with understanding the problem before reaching for 
+            tools. The right model for a task depends on the data, the constraints, and what failure 
+            looks like — not on what is popular. I have used gradient boosting when a neural network 
+            would overfit on limited data, and I have used deep learning when the feature space was 
+            too complex for manual engineering. The decision should follow from the problem.
+          </p>
+          <p>
+            I care about trade-offs. Every design choice has costs. Choosing BERTopic over LDA gives 
+            better topic coherence but requires more compute and is harder to debug. Using walk-forward 
+            validation instead of k-fold reduces your test set size but gives realistic performance 
+            estimates. I try to make these trade-offs explicit in my work because they are where the 
+            real engineering happens.
+          </p>
+          <p>
+            I am most interested in the intersection of machine learning and quantitative finance — 
+            specifically in how reinforcement learning, time series modeling, and alternative data 
+            sources can be combined to build systems that make better decisions under uncertainty.
+          </p>
+          <p>
+            Outside of technical work, I think clearly about what I do not know. The hardest part of 
+            any ML project is not the code — it is knowing when your model is wrong and having the 
+            discipline to test that assumption rather than shipping something that looks good on paper.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills — kept factual, no self-assessment bars -->
+    <section class="section section--bordered">
+      <div class="container">
+        <div class="section__header">
+          <span class="section__label">Technical Skills</span>
+          <h2 class="section__title">What I work with</h2>
+        </div>
+
+        <div class="metrics" style="max-width: 720px;">
+          <div class="metric">
+            <div class="metric__label" style="margin-bottom: var(--space-2); font-weight: 600; color: var(--color-text-primary);">Languages</div>
+            <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">Python, SQL, JavaScript, HTML/CSS</div>
+          </div>
+          <div class="metric">
+            <div class="metric__label" style="margin-bottom: var(--space-2); font-weight: 600; color: var(--color-text-primary);">ML / AI</div>
+            <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">Scikit-learn, PyTorch, NLTK, BERTopic, XGBoost</div>
+          </div>
+          <div class="metric">
+            <div class="metric__label" style="margin-bottom: var(--space-2); font-weight: 600; color: var(--color-text-primary);">Data</div>
+            <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">Pandas, NumPy, Power BI, Tableau, Hadoop, Hive</div>
+          </div>
+          <div class="metric">
+            <div class="metric__label" style="margin-bottom: var(--space-2); font-weight: 600; color: var(--color-text-primary);">Tools</div>
+            <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">Git, Linux, Jupyter, BeautifulSoup, Flask</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resume download -->
+    <section class="section section--bordered resume-section">
+      <div class="container">
+        <h2 class="section__title">Resume</h2>
+        <p>Download my full resume for education details, coursework, and experience.</p>
+        <a href="#" class="btn" download>
+          Download PDF <span class="btn__arrow" aria-hidden="true">↓</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container container--wide">
+      <div class="footer__inner">
+        <span class="footer__text">Javian — Singapore</span>
+        <ul class="footer__links">
+          <li><a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="mailto:javian@email.com">Email</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

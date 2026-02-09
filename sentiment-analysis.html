@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="IT2311 Topic Modelling & Sentiment Analysis — LDA topic modelling on World Bank project documents and sentiment classification on Amazon Video Game reviews." />
+  <title>Topic Modelling & Sentiment Analysis — IT2311 | Javian</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__name">Javian</a>
+      <ul class="nav__links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../projects.html" class="active">Projects</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile-menu" id="mobile-menu">
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- Hero -->
+    <section class="project-hero">
+      <div class="container">
+        <a href="../projects.html" class="project-hero__back">← Back to projects</a>
+        <h1 class="project-hero__title">Topic Modelling & Sentiment Analysis (IT2311)</h1>
+
+        <dl class="project-hero__meta">
+          <div><dt>Role:</dt><dd>Individual contributor</dd></div>
+          <div><dt>Course:</dt><dd>IT2311 — Topic Modelling & Sentiment Analysis</dd></div>
+          <div><dt>Datasets:</dt>
+            <dd>World Bank Project Documents (Topic Modelling) + Amazon Video Game Reviews (Sentiment)</dd>
+          </div>
+          <div><dt>Stack:</dt>
+            <dd>Python, Pandas, NLTK, Gensim (LDA), Scikit-learn, pyLDAvis</dd>
+          </div>
+        </dl>
+
+        <div class="project-card__tags">
+          <span class="tag">NLP</span>
+          <span class="tag">LDA</span>
+          <span class="tag">Text Preprocessing</span>
+          <span class="tag">Sentiment Classification</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem Statement -->
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Problem Statement</span>
+        <h2 class="project-section__title">Turning unstructured text into topics and sentiment signals</h2>
+        <p>
+          This project solves two business-style NLP problems using real-world text:
+          (1) discover and label recurring themes from World Bank development project documents,
+          and (2) predict sentiment from Amazon “Video Games” customer reviews.
+        </p>
+        <p>
+          The output is practical: topic clusters that summarize large document collections, and a sentiment model
+          that can score new reviews for customer experience monitoring.
+        </p>
+      </div>
+    </section>
+
+    <!-- Why Hard -->
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Why This Is Hard</span>
+        <h2 class="project-section__title">Long documents, noisy reviews, and evaluation that actually matters</h2>
+        <p>
+          World Bank project documents are long, formal, and contain repeated “template-like” language.
+          Without careful cleaning, the model learns generic bureaucracy instead of meaningful topics.
+        </p>
+        <p>
+          Amazon reviews are messy and inconsistent: short slangy posts, long rants, mixed opinions,
+          and strong class imbalance if you convert star ratings into sentiment labels.
+        </p>
+        <p>
+          The real challenge is not just “training a model”, but selecting a configuration that produces interpretable
+          topics and a sentiment classifier that generalizes (not overfits).
+        </p>
+      </div>
+    </section>
+
+    <!-- Approach -->
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Approach & Key Decisions</span>
+        <h2 class="project-section__title">Rubric-aligned pipeline: preprocess → model selection → evaluation</h2>
+
+        <p>
+          I followed a strict modelling workflow: exploratory checks, text cleaning, and saving cleaned data for downstream tasks.
+          For topic modelling, I used a taught technique Latent Dirichlet Allocation (LDA) and performed model selection to choose a suitable topic number.
+          For sentiment classification, I compared multiple algorithms and selected the strongest based on evaluation metrics.
+        </p>
+
+        <h3 style="margin-top: 1.25rem;">Topic Modelling (Task 1)</h3>
+        <ul class="project-list">
+          <li>Cleaned and normalized text (lowercasing, tokenization, stopword removal, lemmatization).</li>
+          <li>Built a document-term representation suitable for LDA.</li>
+          <li>Ran LDA across a range of topic counts and tuned key hyperparameters (e.g., passes/iterations, alpha/beta).</li>
+          <li>Selected the final model using quantitative metrics (coherence/perplexity) + qualitative interpretability checks.</li>
+        </ul>
+
+        <h3 style="margin-top: 1.25rem;">Sentiment Classification (Task 2)</h3>
+        <ul class="project-list">
+          <li>Combined title + text and created sentiment labels from star ratings (define clear mapping).</li>
+          <li>Compared three models using different representations: LinearSVC, Logistic Regression and LightGBM models.</li>
+          <li>Selected the best model using validation metrics (e.g., weighted F1) and documented improvements (tuning, class weights, etc.).</li>
+        </ul>
+
+        <!-- Pipeline diagram -->
+        <div class="diagram">
+          <svg viewBox="0 0 860 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NLP pipeline from preprocessing to topic modelling and sentiment classification">
+            <!-- Boxes -->
+            <rect x="12" y="100" width="140" height="62" rx="3" fill="none" stroke="#111" stroke-width="1.5"/>
+            <text x="82" y="126" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#111">Load + Explore</text>
+            <text x="82" y="143" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#888">JSON → DataFrame</text>
+
+            <line x1="152" y1="131" x2="198" y2="131" stroke="#ccc" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+            <rect x="198" y="100" width="150" height="62" rx="3" fill="none" stroke="#111" stroke-width="1.5"/>
+            <text x="273" y="126" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#111">Preprocessing</text>
+            <text x="273" y="143" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#888">NLTK cleaning</text>
+
+            <line x1="348" y1="131" x2="392" y2="90" stroke="#ccc" stroke-width="1.5"/>
+            <line x1="348" y1="131" x2="392" y2="172" stroke="#ccc" stroke-width="1.5"/>
+
+            <rect x="392" y="56" width="160" height="68" rx="3" fill="#f2f2f2" stroke="#111" stroke-width="1.5"/>
+            <text x="472" y="86" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#111">Topic Modelling</text>
+            <text x="472" y="103" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#888">LDA (Gensim)</text>
+
+            <rect x="392" y="148" width="160" height="68" rx="3" fill="#f2f2f2" stroke="#111" stroke-width="1.5"/>
+            <text x="472" y="178" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#111">Sentiment Model</text>
+            <text x="472" y="195" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#888">TF-IDF + Classifier</text>
+
+            <line x1="552" y1="90" x2="610" y2="131" stroke="#ccc" stroke-width="1.5"/>
+            <line x1="552" y1="182" x2="610" y2="131" stroke="#ccc" stroke-width="1.5"/>
+
+            <rect x="610" y="100" width="238" height="62" rx="3" fill="#111" stroke="#111" stroke-width="1.5"/>
+            <text x="729" y="126" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#fafafa">Evaluation + Selection</text>
+            <text x="729" y="143" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#aaa">Coherence/Perplexity + F1</text>
+
+            <defs>
+              <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L8,3 L0,6" fill="none" stroke="#ccc" stroke-width="1"/>
+              </marker>
+            </defs>
+          </svg>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Results & Metrics</span>
+        <h2 class="project-section__title">Final models selected using evidence, not vibes</h2>
+
+        <!-- IMPORTANT: Replace placeholders with your real outputs from notebook -->
+        <div class="metrics">
+          <div class="metric">
+            <div class="metric__value">50,000+</div>
+            <div class="metric__label">World Bank documents</div>
+          </div>
+          <div class="metric">
+            <div class="metric__value">7</div>
+            <div class="metric__label">Chosen LDA topics (K)</div>
+          </div>
+          <div class="metric">
+            <div class="metric__value">0.5331</div>
+            <div class="metric__label">Best coherence / perplexity</div>
+          </div>
+          <div class="metric">
+            <div class="metric__value">0.8659</div>
+            <div class="metric__label">Best sentiment weighted F1</div>
+          </div>
+        </div>
+
+        <p>
+          <strong>Topic Modelling:</strong> The final LDA model produced topics that correspond to real project themes
+          (e.g., infrastructure development, health systems, education, governance). Topic interpretability was verified
+          by inspecting top words and representative documents, and supported by coherence/perplexity trends across K.
+        </p>
+
+        <p>
+          <strong>Sentiment Classification:</strong> Multiple models were trained and compared using the same train/validation split.
+          The best model was selected using evaluation metrics (especially weighted F1 to handle imbalance) and error analysis
+          from the confusion matrix / misclassified examples. The final model was able to correctly identify the sentiment of a particular document 
+          more than 85% of the time. 
+        </p>
+      </div>
+    </section>
+
+    <!-- Trade-offs -->
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Trade-offs & Limitations</span>
+        <h2 class="project-section__title">What this approach still misses</h2>
+        <p>
+          Topic models are sensitive to preprocessing choices. If you over-remove frequent domain terms, you can lose signal.
+          If you under-remove boilerplate text, you get generic “administrative” topics.
+        </p>
+        <p>
+          Review sentiment is not always clean-cut: “5 stars but delivery was late” exists, and mixed-sentiment text can confuse
+          document-level labels. A richer approach would do aspect-level sentiment, but that is beyond the assignment scope.
+        </p>
+      </div>
+    </section>
+
+    <!-- Future -->
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Future Improvements</span>
+        <h2 class="project-section__title">Next steps if this were a real product</h2>
+        <ul class="project-list">
+          <li>Topic drift tracking: monitor how topic frequency changes over time (e.g., by project year/type).</li>
+          <li>Better interpretability: add human-in-the-loop topic labels with clear evidence (top docs per topic).</li>
+          <li>Sentiment robustness: calibrate thresholds, handle neutral class explicitly, and add model monitoring.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section--bordered" style="text-align: center;">
+      <div class="container">
+        <span class="section__label">Next Project</span>
+        <h2 class="section__title">
+          <a href="bridgegen.html" style="border-bottom: 1px solid var(--color-border);">
+            BridgeGen — Intergenerational Platform →
+          </a>
+        </h2>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container container--wide">
+      <div class="footer__inner">
+        <span class="footer__text">Javian — Singapore</span>
+        <ul class="footer__links">
+          <li><a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="mailto:javian@email.com">Email</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

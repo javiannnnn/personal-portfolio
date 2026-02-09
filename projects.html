@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Projects by Javian — ML pipelines, NLP systems, and data-driven applications.">
+  <title>Projects — Javian</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__name">Javian</a>
+      <ul class="nav__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="skills.html">Skills</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section class="hero" style="padding-bottom: var(--space-10);">
+      <div class="container">
+        <span class="hero__label">Projects</span>
+        <h1 class="hero__title" style="font-size: var(--text-3xl);">Selected work</h1>
+        <p class="hero__subtitle">
+          Each project below includes the problem, the reasoning behind key decisions, 
+          measurable results, and what I would do differently. Click through for the full write-up.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container container--wide">
+        <div class="projects-grid">
+
+          <!-- Project 1 -->
+          <a href="projects/stock-predictor.html" class="project-card">
+            <div class="project-card__top">
+              <span class="project-card__number">01</span>
+            </div>
+            <h3 class="project-card__title">Stock Market Portfolio Manager</h3>
+            <p class="project-card__desc">
+              Ensemble ML pipeline for multi-stock price prediction. Gradient boosting + random forest 
+              with recursive feature engineering, achieving 83% R² on held-out test data.
+            </p>
+            <div class="project-card__tags">
+              <span class="tag">Python</span>
+              <span class="tag">Scikit-learn</span>
+              <span class="tag">Feature Engineering</span>
+              <span class="tag">Ensemble Methods</span>
+            </div>
+            <span class="project-card__arrow" aria-hidden="true">→</span>
+          </a>
+
+          <!-- Project 2 -->
+          <a href="projects/sentiment-analysis.html" class="project-card">
+            <div class="project-card__top">
+              <span class="project-card__number">02</span>
+            </div>
+            <h3 class="project-card__title">Hotel Review Sentiment Analysis</h3>
+            <p class="project-card__desc">
+              End-to-end NLP pipeline: web scraping, text preprocessing, topic modeling with LDA and BERTopic,
+              and classification to extract actionable insights from 10,000+ reviews.
+            </p>
+            <div class="project-card__tags">
+              <span class="tag">NLP</span>
+              <span class="tag">BERTopic</span>
+              <span class="tag">LDA</span>
+              <span class="tag">Web Scraping</span>
+            </div>
+            <span class="project-card__arrow" aria-hidden="true">→</span>
+          </a>
+
+          <!-- Project 3 -->
+          <a href="projects/bridgegen.html" class="project-card">
+            <div class="project-card__top">
+              <span class="project-card__number">03</span>
+            </div>
+            <h3 class="project-card__title">BridgeGen — Intergenerational Platform</h3>
+            <p class="project-card__desc">
+              Full-stack social platform connecting seniors and youth in Singapore. Built matching 
+              algorithms and content recommendation logic for cross-generational interaction.
+            </p>
+            <div class="project-card__tags">
+              <span class="tag">Full-Stack</span>
+              <span class="tag">Product Design</span>
+              <span class="tag">Recommendation</span>
+            </div>
+            <span class="project-card__arrow" aria-hidden="true">→</span>
+          </a>
+
+          <!-- Project 4 -->
+          <a href="projects/sustainability-dashboard.html" class="project-card">
+            <div class="project-card__top">
+              <span class="project-card__number">04</span>
+            </div>
+            <h3 class="project-card__title">Sustainability Analytics Dashboard</h3>
+            <p class="project-card__desc">
+              Interactive dashboard consolidating environmental metrics across multiple data sources. 
+              Automated ETL pipeline feeding into Power BI with drill-down analysis for stakeholder reporting.
+            </p>
+            <div class="project-card__tags">
+              <span class="tag">Power BI</span>
+              <span class="tag">ETL</span>
+              <span class="tag">Data Visualization</span>
+            </div>
+            <span class="project-card__arrow" aria-hidden="true">→</span>
+          </a>
+
+          <!-- Project 5 -->
+          <a href="projects/rl-trading.html" class="project-card">
+            <div class="project-card__top">
+              <span class="project-card__number">05</span>
+            </div>
+            <h3 class="project-card__title">RL-Based Trading Agent</h3>
+            <p class="project-card__desc">
+              Reinforcement learning agent for simulated equity trading. Implemented DQN with custom 
+              reward shaping to balance return maximization against drawdown risk.
+            </p>
+            <div class="project-card__tags">
+              <span class="tag">Reinforcement Learning</span>
+              <span class="tag">DQN</span>
+              <span class="tag">Python</span>
+            </div>
+            <span class="project-card__arrow" aria-hidden="true">→</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container container--wide">
+      <div class="footer__inner">
+        <span class="footer__text">Javian — Singapore</span>
+        <ul class="footer__links">
+          <li><a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="mailto:javian@email.com">Email</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

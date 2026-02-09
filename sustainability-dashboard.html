@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sustainability Analytics Dashboard — ETL pipeline and Power BI dashboard for environmental metric reporting.">
+  <title>Sustainability Analytics Dashboard — Javian</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__name">Javian</a>
+      <ul class="nav__links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../projects.html" class="active">Projects</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile-menu" id="mobile-menu">
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <section class="project-hero">
+      <div class="container">
+        <a href="../projects.html" class="project-hero__back">← Back to projects</a>
+        <h1 class="project-hero__title">Sustainability Analytics Dashboard</h1>
+        <dl class="project-hero__meta">
+          <div><dt>Role:</dt><dd>Data analyst & developer</dd></div>
+          <div><dt>Duration:</dt><dd>6 weeks</dd></div>
+          <div><dt>Stack:</dt><dd>Python, SQL, Power BI, Pandas</dd></div>
+        </dl>
+        <div class="project-card__tags">
+          <span class="tag">Power BI</span>
+          <span class="tag">ETL</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Data Visualization</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Problem Statement</span>
+        <h2 class="project-section__title">Environmental data scattered across incompatible sources</h2>
+        <p>
+          Organizations tracking sustainability metrics (carbon emissions, energy consumption, waste 
+          output, water usage) typically collect data in spreadsheets, CSV exports from sensors, and 
+          manual logs. These sources use different units, time granularity, and naming conventions. 
+          Stakeholder reporting requires consolidating this into coherent, auditable dashboards.
+        </p>
+        <p>
+          The goal was to build an automated pipeline that ingests data from multiple sources, 
+          normalizes it, and feeds a Power BI dashboard that non-technical stakeholders can use 
+          to track progress against sustainability targets.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Why This Is Hard</span>
+        <h2 class="project-section__title">Messy data, inconsistent schemas, and non-technical users</h2>
+        <p>
+          The incoming data had no consistent schema. Energy data was in kWh with hourly readings. 
+          Waste data was in kilograms with weekly totals. Carbon data was derived from fuel 
+          consumption logs with mixed units (liters, gallons). Joining these datasets requires 
+          careful unit conversion and temporal alignment.
+        </p>
+        <p>
+          Missing data was common — sensors go offline, manual logs get skipped. The ETL pipeline 
+          needs to handle gaps without silently producing incorrect aggregations. The difference 
+          between "no data recorded" and "zero emissions" matters for audit purposes.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Approach & Key Decisions</span>
+        <h2 class="project-section__title">Staging-layer ETL with explicit null handling</h2>
+        <p>
+          I designed the pipeline in three stages: raw ingestion (preserve source data as-is), 
+          staging (clean, normalize, flag issues), and production (aggregated, dashboard-ready). 
+          The staging layer is the critical component — it applies unit conversions, resamples 
+          time series to a common daily granularity, and flags rows with missing or suspicious values.
+        </p>
+        <p>
+          For null handling, I chose to propagate nulls through aggregation rather than impute. 
+          A weekly total with 2 missing days shows as "incomplete" in the dashboard, not as a 
+          misleadingly low number. This decision trades visual cleanliness for data integrity, 
+          which is the right trade-off for sustainability reporting where numbers may be audited.
+        </p>
+        <p>
+          The Power BI dashboard uses a drill-down structure: top-level KPIs → category breakdown 
+          → facility-level detail. Filters are synced across pages so selecting a date range updates 
+          all views simultaneously. I used DAX measures for year-over-year comparisons and 
+          target-vs-actual calculations.
+        </p>
+
+        <div class="diagram">
+          <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ETL pipeline from raw sources through staging to Power BI dashboard">
+            <rect x="10" y="30" width="100" height="45" rx="3" fill="#f2f2f2" stroke="#111" stroke-width="1.5"/>
+            <text x="60" y="52" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" font-weight="600" fill="#111">CSV / Sensors</text>
+
+            <rect x="10" y="85" width="100" height="45" rx="3" fill="#f2f2f2" stroke="#111" stroke-width="1.5"/>
+            <text x="60" y="107" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" font-weight="600" fill="#111">Spreadsheets</text>
+
+            <rect x="10" y="140" width="100" height="45" rx="3" fill="#f2f2f2" stroke="#111" stroke-width="1.5"/>
+            <text x="60" y="162" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" font-weight="600" fill="#111">Manual Logs</text>
+
+            <line x1="110" y1="52" x2="170" y2="100" stroke="#ccc" stroke-width="1.5"/>
+            <line x1="110" y1="107" x2="170" y2="100" stroke="#ccc" stroke-width="1.5"/>
+            <line x1="110" y1="162" x2="170" y2="100" stroke="#ccc" stroke-width="1.5"/>
+
+            <rect x="170" y="70" width="120" height="60" rx="3" fill="none" stroke="#111" stroke-width="1.5"/>
+            <text x="230" y="96" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#111">Raw Ingestion</text>
+            <text x="230" y="112" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#888">Preserve as-is</text>
+
+            <line x1="290" y1="100" x2="340" y2="100" stroke="#ccc" stroke-width="1.5" marker-end="url(#arrow4)"/>
+
+            <rect x="340" y="70" width="130" height="60" rx="3" fill="none" stroke="#111" stroke-width="1.5"/>
+            <text x="405" y="96" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#111">Staging Layer</text>
+            <text x="405" y="112" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#888">Clean, normalize, flag</text>
+
+            <line x1="470" y1="100" x2="520" y2="100" stroke="#ccc" stroke-width="1.5" marker-end="url(#arrow4)"/>
+
+            <rect x="520" y="70" width="110" height="60" rx="3" fill="none" stroke="#111" stroke-width="1.5"/>
+            <text x="575" y="96" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#111">Production</text>
+            <text x="575" y="112" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#888">Aggregated tables</text>
+
+            <line x1="630" y1="100" x2="680" y2="100" stroke="#ccc" stroke-width="1.5" marker-end="url(#arrow4)"/>
+
+            <rect x="680" y="70" width="100" height="60" rx="3" fill="#111" stroke="#111" stroke-width="1.5"/>
+            <text x="730" y="96" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#fafafa">Power BI</text>
+            <text x="730" y="112" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#aaa">Drill-down views</text>
+
+            <defs>
+              <marker id="arrow4" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L8,3 L0,6" fill="none" stroke="#ccc" stroke-width="1"/>
+              </marker>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Results & Metrics</span>
+        <h2 class="project-section__title">Reporting time reduced from days to minutes</h2>
+
+        <div class="metrics">
+          <div class="metric">
+            <div class="metric__value">4</div>
+            <div class="metric__label">Data sources integrated</div>
+          </div>
+          <div class="metric">
+            <div class="metric__value">95%</div>
+            <div class="metric__label">Data completeness rate</div>
+          </div>
+          <div class="metric">
+            <div class="metric__value">~90%</div>
+            <div class="metric__label">Reporting time reduction</div>
+          </div>
+          <div class="metric">
+            <div class="metric__value">3</div>
+            <div class="metric__label">Dashboard drill-down levels</div>
+          </div>
+        </div>
+
+        <p>
+          The automated pipeline processes a full data refresh in under 2 minutes. Previously, 
+          compiling the same report manually took 1–2 business days due to the time spent on 
+          data collection and formatting.
+        </p>
+        <p>
+          The null-propagation strategy caught 3 instances where missing sensor data would have 
+          produced artificially low emission figures — exactly the kind of error that erodes trust 
+          in sustainability reporting.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Trade-offs & Limitations</span>
+        <h2 class="project-section__title">Power BI dependency and limited automation</h2>
+        <p>
+          The dashboard is tied to Power BI, which requires a license and Windows environment. 
+          An open-source alternative (Superset, Metabase) would reduce vendor lock-in but lacks 
+          some of Power BI's DAX capabilities and polish for non-technical users.
+        </p>
+        <p>
+          The ETL pipeline runs on a manual trigger, not a schedule. Adding orchestration (Airflow, 
+          Prefect) would make it production-ready but was out of scope for this project timeline.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Future Improvements</span>
+        <h2 class="project-section__title">Toward automated alerting and predictive targets</h2>
+        <ul class="project-list">
+          <li>
+            Add anomaly detection on incoming data to automatically flag sensor malfunctions or 
+            data quality issues before they reach the dashboard.
+          </li>
+          <li>
+            Implement scheduled ETL runs with Airflow and add data lineage tracking so every 
+            dashboard number can be traced back to its source record.
+          </li>
+          <li>
+            Build a forecasting module that projects whether current trends will meet annual 
+            sustainability targets, giving stakeholders early warning.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section--bordered" style="text-align: center;">
+      <div class="container">
+        <span class="section__label">Next Project</span>
+        <h2 class="section__title"><a href="rl-trading.html" style="border-bottom: 1px solid var(--color-border);">RL-Based Trading Agent →</a></h2>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container container--wide">
+      <div class="footer__inner">
+        <span class="footer__text">Javian — Singapore</span>
+        <ul class="footer__links">
+          <li><a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="mailto:javian@email.com">Email</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

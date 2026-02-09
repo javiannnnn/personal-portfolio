@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Technical skills — languages, frameworks, tools, and domains Javian works with.">
+  <title>Skills — Javian</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__name">Javian</a>
+      <ul class="nav__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="skills.html" class="active">Skills</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="skills.html" class="active">Skills</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section class="hero" style="padding-bottom: var(--space-10);">
+      <div class="container">
+        <span class="hero__label">Skills</span>
+        <h1 class="hero__title" style="font-size: var(--text-3xl);">What I work with</h1>
+        <p class="hero__subtitle">
+          Organized by domain. I list what I have actually used in projects, not what I have 
+          watched a tutorial on. Each skill includes context on where and how I have applied it.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SKILLS — grouped by domain, each with context
+         No percentage bars. Recruiters and engineers both find them
+         meaningless. Instead: what it is, where I used it, how deep.
+         ============================================================ -->
+
+    <!-- Programming Languages -->
+    <section class="section">
+      <div class="container container--wide">
+        <div class="section__header">
+          <span class="section__label">01</span>
+          <h2 class="section__title">Programming Languages</h2>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <h3 class="skill-card__name">Python</h3>
+            <p class="skill-card__context">Primary language. Used across all ML projects — from data wrangling with Pandas to building DQN agents in PyTorch. Comfortable with OOP, decorators, generators, and package structure.</p>
+            <div class="skill-card__used">
+              <span class="tag">Stock Predictor</span>
+              <span class="tag">Sentiment Analysis</span>
+              <span class="tag">RL Trading Agent</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card__name">SQL</h3>
+            <p class="skill-card__context">Used for ETL pipelines and data extraction. Comfortable with window functions, CTEs, joins across normalized schemas, and query optimization for analytical workloads.</p>
+            <div class="skill-card__used">
+              <span class="tag">Sustainability Dashboard</span>
+              <span class="tag">Big Data Management</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card__name">JavaScript</h3>
+            <p class="skill-card__context">Frontend interactivity and DOM manipulation. Built UI components for BridgeGen and this portfolio. Vanilla JS — no framework dependency.</p>
+            <div class="skill-card__used">
+              <span class="tag">BridgeGen</span>
+              <span class="tag">Portfolio Site</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card__name">HTML &amp; CSS</h3>
+            <p class="skill-card__context">Semantic markup, responsive design, CSS Grid/Flexbox, accessibility-first development. Built mobile-first layouts with no framework overhead.</p>
+            <div class="skill-card__used">
+              <span class="tag">BridgeGen</span>
+              <span class="tag">Portfolio Site</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Machine Learning & AI -->
+    <section class="section section--bordered">
+      <div class="container container--wide">
+        <div class="section__header">
+          <span class="section__label">02</span>
+          <h2 class="section__title">Machine Learning &amp; AI</h2>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <h3 class="skill-card__name">Scikit-learn</h3>
+            <p class="skill-card__context">Ensemble methods (XGBoost, Random Forest), feature selection (RFE), model evaluation with walk-forward validation. Pipelines for reproducible training workflows.</p>
+            <div class="skill-card__used">
+              <span class="tag">Stock Predictor</span>
+              <span class="tag">Sentiment Analysis</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card__name">PyTorch</h3>
+            <p class="skill-card__context">Built DQN architecture with experience replay and target networks. Implemented custom loss functions and training loops for the RL trading agent.</p>
+            <div class="skill-card__used">
+              <span class="tag">RL Trading Agent</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card__name">NLP — NLTK, LDA</h3>
+            <p class="skill-card__context">Full text processing pipeline: tokenization, lemmatization, POS tagging, NER. Topic modeling with both bag-of-words (LDA) and transformer-based (BERTopic) approaches. Sentiment classification.</p>
+            <div class="skill-card__used">
+              <span class="tag">Sentiment Analysis</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card__name">Reinforcement Learning</h3>
+            <p class="skill-card__context">DQN with custom reward shaping, epsilon-greedy exploration, experience replay buffers. Built custom OpenAI Gym environments for financial simulation.</p>
+            <div class="skill-card__used">
+              <span class="tag">RL Trading Agent</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card__name">Feature Engineering</h3>
+            <p class="skill-card__context">Recursive feature elimination, technical indicator construction (RSI, MACD, Bollinger), rolling statistics, lag features. Built 47 features and pruned to 18 on signal strength.</p>
+            <div class="skill-card__used">
+              <span class="tag">Stock Predictor</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Data & Visualization -->
+    <section class="section section--bordered">
+      <div class="container container--wide">
+        <div class="section__header">
+          <span class="section__label">03</span>
+          <h2 class="section__title">Data &amp; Visualization</h2>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <h3 class="skill-card__name">Pandas &amp; NumPy</h3>
+            <p class="skill-card__context">Daily tools for data manipulation — time series resampling, multi-index operations, vectorized computation, merge/join strategies for large datasets.</p>
+            <div class="skill-card__used">
+              <span class="tag">All Projects</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card__name">Power BI &amp; Tableau</h3>
+            <p class="skill-card__context">Built drill-down dashboards with DAX measures, year-over-year calculations, synced cross-page filters. Designed for non-technical stakeholders.</p>
+            <div class="skill-card__used">
+              <span class="tag">Sustainability Dashboard</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card__name">Matplotlib &amp; Seaborn</h3>
+            <p class="skill-card__context">Statistical plots, confusion matrices, feature importance charts, time series visualizations. Used for model evaluation and communicating results.</p>
+            <div class="skill-card__used">
+              <span class="tag">Stock Predictor</span>
+              <span class="tag">Sentiment Analysis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Infrastructure & Tools -->
+    <section class="section section--bordered">
+      <div class="container container--wide">
+        <div class="section__header">
+          <span class="section__label">04</span>
+          <h2 class="section__title">Infrastructure &amp; Tools</h2>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <h3 class="skill-card__name">Git &amp; GitHub</h3>
+            <p class="skill-card__context">Version control for all projects. Branching strategies, pull requests, and collaborative workflows in the BridgeGen team project.</p>
+            <div class="skill-card__used">
+              <span class="tag">All Projects</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card__name">Hadoop &amp; Hive</h3>
+            <p class="skill-card__context">Distributed data processing coursework. HDFS operations, Hive queries on large datasets, Sqoop for data transfer between RDBMS and Hadoop.</p>
+            <div class="skill-card__used">
+              <span class="tag">Big Data Management</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card__name">Web Scraping</h3>
+            <p class="skill-card__context">BeautifulSoup and Requests for structured extraction. Handling dynamic content, rate limiting, rotating user agents, and data cleaning from messy HTML.</p>
+            <div class="skill-card__used">
+              <span class="tag">Sentiment Analysis</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card__name">Flask</h3>
+            <p class="skill-card__context">Lightweight backend for BridgeGen. Routing, template rendering, database integration with PostgreSQL.</p>
+            <div class="skill-card__used">
+              <span class="tag">BridgeGen</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3 class="skill-card__name">Linux &amp; Jupyter</h3>
+            <p class="skill-card__context">Command-line fluency for server operations and development. Jupyter for iterative analysis, prototyping, and documentation of ML experiments.</p>
+            <div class="skill-card__used">
+              <span class="tag">All Projects</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container container--wide">
+      <div class="footer__inner">
+        <span class="footer__text">Javian — Singapore</span>
+        <ul class="footer__links">
+          <li><a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="mailto:javian@email.com">Email</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
