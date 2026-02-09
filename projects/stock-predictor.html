@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Stock Market Portfolio Manager — Ensemble ML pipeline for price prediction with 83% R² accuracy.">
+  <title>Stock Market Portfolio Manager — Javian</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__name">Javian</a>
+      <ul class="nav__links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../projects.html" class="active">Projects</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile-menu" id="mobile-menu">
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ============================================================
+         PROJECT HERO — Title, metadata, back link
+         ============================================================ -->
+    <section class="project-hero">
+      <div class="container">
+        <a href="../projects.html" class="project-hero__back">← Back to projects</a>
+        <h1 class="project-hero__title">Stock Market Portfolio Manager</h1>
+        <dl class="project-hero__meta">
+          <div><dt>Role:</dt><dd>Solo developer</dd></div>
+          <div><dt>Duration:</dt><dd>8 weeks</dd></div>
+          <div><dt>Stack:</dt><dd>Python, Scikit-learn, Pandas, Matplotlib</dd></div>
+        </dl>
+        <div class="project-card__tags">
+          <span class="tag">Machine Learning</span>
+          <span class="tag">Feature Engineering</span>
+          <span class="tag">Ensemble Methods</span>
+          <span class="tag">Financial Data</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PROBLEM STATEMENT
+         ============================================================ -->
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Problem Statement</span>
+        <h2 class="project-section__title">Predicting short-term stock prices across a multi-asset portfolio</h2>
+        <p>
+          Retail investors managing small portfolios typically rely on discretionary judgment or simple 
+          moving-average signals. The goal was to build a system that generates next-day price predictions 
+          for a basket of 10 equities, ranking them by expected return to inform allocation decisions.
+        </p>
+        <p>
+          The output needed to be practical: not a research paper, but a working pipeline that ingests 
+          daily market data, trains models, and outputs ranked predictions with confidence intervals.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         WHY THE PROBLEM IS HARD
+         ============================================================ -->
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Why This Is Hard</span>
+        <h2 class="project-section__title">Financial time series break most ML assumptions</h2>
+        <p>
+          Stock prices are non-stationary, meaning the statistical properties of the data change over 
+          time. A model trained on 2020 data may fail entirely on 2023 data because the underlying 
+          market regime shifted. Standard train/test splits leak future information if you are not careful 
+          about temporal ordering.
+        </p>
+        <p>
+          The signal-to-noise ratio is extremely low. Most day-to-day price movement is noise, and the 
+          predictable component — if it exists — is small relative to the variance. Overfitting is the 
+          default outcome, not the exception.
+        </p>
+        <p>
+          Additionally, features that worked historically (momentum, mean-reversion signals) can become 
+          crowded and lose their edge. The model needs to be robust to feature decay.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         APPROACH & KEY DECISIONS
+         ============================================================ -->
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Approach & Key Decisions</span>
+        <h2 class="project-section__title">Ensemble pipeline with walk-forward validation</h2>
+        <p>
+          I chose an ensemble of gradient boosting (XGBoost) and random forest rather than a single 
+          model. The reasoning: gradient boosting captures sequential patterns in residuals, while random 
+          forest provides variance reduction through bagging. Their errors are partially uncorrelated, 
+          which improves combined predictions.
+        </p>
+        <p>
+          For feature engineering, I built 47 features across four categories: technical indicators 
+          (RSI, MACD, Bollinger bandwidth), lagged returns (1-day through 20-day), volume-price 
+          interactions, and rolling volatility at multiple windows. I then used recursive feature 
+          elimination to prune this down to the 18 features with the strongest predictive signal, 
+          reducing overfitting risk.
+        </p>
+        <p>
+          The most important design decision was using walk-forward validation instead of random 
+          cross-validation. The data was split into expanding windows: train on months 1–6, test on 
+          month 7; train on months 1–7, test on month 8, and so on. This respects the temporal 
+          structure and gives a realistic estimate of production performance.
+        </p>
+
+        <!-- Pipeline diagram -->
+        <div class="diagram">
+          <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ML pipeline diagram showing data flow from ingestion to prediction output">
+            <!-- Pipeline stages -->
+            <rect x="10" y="70" width="120" height="60" rx="3" fill="none" stroke="#111" stroke-width="1.5"/>
+            <text x="70" y="96" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#111">Data Ingestion</text>
+            <text x="70" y="112" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#888">Yahoo Finance API</text>
+
+            <line x1="130" y1="100" x2="170" y2="100" stroke="#ccc" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+            <rect x="170" y="70" width="120" height="60" rx="3" fill="none" stroke="#111" stroke-width="1.5"/>
+            <text x="230" y="96" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#111">Feature Engine</text>
+            <text x="230" y="112" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#888">47 → 18 features</text>
+
+            <line x1="290" y1="100" x2="330" y2="100" stroke="#ccc" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+            <rect x="330" y="70" width="120" height="60" rx="3" fill="none" stroke="#111" stroke-width="1.5"/>
+            <text x="390" y="96" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#111">Walk-Forward</text>
+            <text x="390" y="112" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#888">Expanding window</text>
+
+            <line x1="450" y1="100" x2="490" y2="100" stroke="#ccc" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+            <rect x="490" y="40" width="120" height="50" rx="3" fill="#f2f2f2" stroke="#111" stroke-width="1.5"/>
+            <text x="550" y="62" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#111">XGBoost</text>
+            <text x="550" y="78" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#888">Sequential residuals</text>
+
+            <rect x="490" y="110" width="120" height="50" rx="3" fill="#f2f2f2" stroke="#111" stroke-width="1.5"/>
+            <text x="550" y="132" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#111">Random Forest</text>
+            <text x="550" y="148" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#888">Variance reduction</text>
+
+            <line x1="610" y1="65" x2="660" y2="100" stroke="#ccc" stroke-width="1.5"/>
+            <line x1="610" y1="135" x2="660" y2="100" stroke="#ccc" stroke-width="1.5"/>
+
+            <rect x="660" y="70" width="120" height="60" rx="3" fill="#111" stroke="#111" stroke-width="1.5"/>
+            <text x="720" y="96" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#fafafa">Ranked Output</text>
+            <text x="720" y="112" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#aaa">+ Confidence</text>
+
+            <defs>
+              <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L8,3 L0,6" fill="none" stroke="#ccc" stroke-width="1"/>
+              </marker>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         RESULTS & METRICS
+         ============================================================ -->
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Results & Metrics</span>
+        <h2 class="project-section__title">Performance on held-out data</h2>
+
+        <div class="metrics">
+          <div class="metric">
+            <div class="metric__value">0.83</div>
+            <div class="metric__label">R² Score (test set)</div>
+          </div>
+          <div class="metric">
+            <div class="metric__value">2.4%</div>
+            <div class="metric__label">Mean Absolute Error</div>
+          </div>
+          <div class="metric">
+            <div class="metric__value">18</div>
+            <div class="metric__label">Features selected (of 47)</div>
+          </div>
+          <div class="metric">
+            <div class="metric__value">10</div>
+            <div class="metric__label">Equities tracked</div>
+          </div>
+        </div>
+
+        <p>
+          The ensemble outperformed each individual model by 4–7% on R², confirming that the 
+          uncorrelated error assumption held. Walk-forward validation showed consistent performance 
+          across 12 monthly test windows, with no single window dropping below 0.71 R².
+        </p>
+        <p>
+          Directional accuracy (correctly predicting whether a stock goes up or down) was 64%, which 
+          is meaningful in a domain where 55% is often considered useful.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         TRADE-OFFS & LIMITATIONS
+         ============================================================ -->
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Trade-offs & Limitations</span>
+        <h2 class="project-section__title">What this system cannot do</h2>
+        <p>
+          The 83% R² is strong for this problem domain, but it measures how well the model explains 
+          variance — not whether it makes money. Transaction costs, slippage, and market impact are 
+          not modeled. A real trading system would need a separate execution layer that accounts for 
+          these frictions.
+        </p>
+        <p>
+          The model was trained on a single market regime (2019–2023). It has not been tested against 
+          Black Swan events or prolonged bear markets. Regime detection and model switching would be 
+          required for production use.
+        </p>
+        <p>
+          Feature engineering was manual. I selected technical indicators based on domain reading and 
+          iteration, which introduces researcher bias. An automated feature search (e.g., tsfresh) 
+          might discover features I missed, at the cost of interpretability.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FUTURE IMPROVEMENTS
+         ============================================================ -->
+    <section class="project-section">
+      <div class="container">
+        <span class="project-section__label">Future Improvements</span>
+        <h2 class="project-section__title">Where this goes next</h2>
+        <ul class="project-list">
+          <li>
+            Add a regime detection module (Hidden Markov Model) that switches between separate 
+            models trained on bull, bear, and sideways markets.
+          </li>
+          <li>
+            Integrate alternative data sources — specifically sentiment scores from financial news 
+            and earnings call transcripts — as additional features.
+          </li>
+          <li>
+            Build a backtesting framework with realistic transaction cost modeling to validate 
+            whether predictive accuracy translates to risk-adjusted returns.
+          </li>
+          <li>
+            Explore temporal fusion transformers as a replacement for the ensemble, benchmarking 
+            performance against the current approach on the same walk-forward splits.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Next project link -->
+    <section class="section section--bordered" style="text-align: center;">
+      <div class="container">
+        <span class="section__label">Next Project</span>
+        <h2 class="section__title"><a href="sentiment-analysis.html" style="border-bottom: 1px solid var(--color-border);">Hotel Review Sentiment Analysis →</a></h2>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container container--wide">
+      <div class="footer__inner">
+        <span class="footer__text">Javian — Singapore</span>
+        <ul class="footer__links">
+          <li><a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="mailto:javian@email.com">Email</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
